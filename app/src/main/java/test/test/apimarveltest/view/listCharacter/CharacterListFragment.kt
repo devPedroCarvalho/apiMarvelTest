@@ -1,4 +1,4 @@
-package test.test.apimarveltest.view
+package test.test.apimarveltest.view.listCharacter
 
 import android.os.Bundle
 import android.view.LayoutInflater
