@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/characterListFragment"
-        android:name="test.test.apimarveltest.CharacterListFragment"
+        android:name="test.test.apimarveltest.view.CharacterListFragment"
         android:label="fragment_character_list"
         tools:layout="@layout/fragment_character_list" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/characterDetailsFragment"
-        android:name="test.test.apimarveltest.CharacterDetailsFragment"
+        android:name="test.test.apimarveltest.view.CharacterDetailsFragment"
         android:label="fragment_character_details"
         tools:layout="@layout/fragment_character_details" />
 </navigation>

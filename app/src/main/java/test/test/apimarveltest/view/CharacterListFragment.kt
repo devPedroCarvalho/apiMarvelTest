@@ -1,22 +1,21 @@
-package test.test.apimarveltest
+package test.test.apimarveltest.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import test.test.apimarveltest.databinding.FragmentCharacterDetailsBinding
+import test.test.apimarveltest.databinding.FragmentCharacterListBinding
 
-class CharacterDetailsFragment : Fragment() {
+class CharacterListFragment : Fragment() {
 
-    private lateinit var binding: FragmentCharacterDetailsBinding
-    
+    private lateinit var binding: FragmentCharacterListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCharacterDetailsBinding.inflate(inflater, container, false)
+        binding = FragmentCharacterListBinding.inflate(inflater, container, false)
         //setListeners()
         return binding.root
     }
