@@ -1,5 +1,6 @@
 package test.test.apimarveltest.view.details
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import test.test.apimarveltest.R
 import test.test.apimarveltest.databinding.FragmentCharacterDetailsBinding
 
 class CharacterDetailsFragment : Fragment() {
@@ -25,7 +27,7 @@ class CharacterDetailsFragment : Fragment() {
         binding = FragmentCharacterDetailsBinding.inflate(inflater, container, false)
 
         val id = args.id
-        viewModel.getDetailsCharacter(id)
+        viewModel.getDetailsCharacter(id,context)
 
         return binding.root
     }
@@ -38,11 +40,23 @@ class CharacterDetailsFragment : Fragment() {
     private fun setObservers() {
         viewModel.detailsLiveData.observe(viewLifecycleOwner, Observer {
 
-            binding.titleTextView.text = it.name
-            binding.descriptionTextView.text = it.description
 
+            if (it.name.isBlank()){
+                binding.titleTextView.text = getString(R.string.title_is_empty)
+            }else{
+                binding.titleTextView.text = it.name
+            }
+
+            if (it.description.isBlank()){
+                binding.descriptionTextView.text = getString(R.string.description_is_empty)
+
+            }else{
+                binding.descriptionTextView.text = it.description
+
+            }
             Glide.with(this)
                 .load(it.url())
+                .error(R.drawable.ic_not_found_image)
                 .into(binding.imageCharacterImageView)
         })
     }

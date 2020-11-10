@@ -1,5 +1,7 @@
 package test.test.apimarveltest.view.listCharacter
 
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import retrofit2.Call
@@ -14,10 +16,10 @@ class CharacterListViewModel: ViewModel() {
     private val _characterLiveData = MutableLiveData<MutableList<CharacterModel>>()
     val characterLiveData: MutableLiveData<MutableList<CharacterModel>> = _characterLiveData
 
-    fun getListCharacter(){
+    fun getListCharacter(context: Context?){
         ApiService.service.getListCharacter().enqueue(object: Callback<CharacterListResponse> {
             override fun onFailure(call: Call<CharacterListResponse>, t: Throwable) {
-
+                Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(
@@ -40,6 +42,8 @@ class CharacterListViewModel: ViewModel() {
                     }
                     _characterLiveData.value = listCharacter
 
+                }else {
+                    Toast.makeText(context, "${response.code()} ${response.message()}", Toast.LENGTH_SHORT).show()
                 }
             }
 

@@ -2,7 +2,7 @@ package test.test.apimarveltest.remoteDataSource.model
 
 data class DetailsModel (
     val name: String,
-    val description: String,
+    val description: String = "",
     val image: String,
     val extension: String,
 ){

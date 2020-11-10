@@ -1,6 +1,6 @@
 package test.test.apimarveltest.remoteDataSource.model
 
 data class CharacterModel (
-    val id: Int,
-    val name: String
+    val id: Int = 0,
+    val name: String = ""
 )

@@ -22,7 +22,7 @@ class CharacterListFragment : Fragment() {
     ): View? {
         binding = FragmentCharacterListBinding.inflate(inflater, container, false)
 
-        viewModel.getListCharacter()
+        viewModel.getListCharacter(context)
 
         return binding.root
     }
