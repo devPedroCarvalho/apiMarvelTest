@@ -18,5 +18,9 @@
         android:id="@+id/characterDetailsFragment"
         android:name="test.test.apimarveltest.view.details.CharacterDetailsFragment"
         android:label="fragment_character_details"
-        tools:layout="@layout/fragment_character_details" />
+        tools:layout="@layout/fragment_character_details" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>

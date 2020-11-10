@@ -38,7 +38,7 @@ class CharacterListFragment : Fragment() {
     private fun setObservers() {
         viewModel.characterLiveData.observe(viewLifecycleOwner, Observer {
 
-            adapterCharacterList = AdapterCharacterList(it)
+            adapterCharacterList = AdapterCharacterList(it, this)
 
             binding.characterListRecyclerView.apply {
                 adapter = adapterCharacterList

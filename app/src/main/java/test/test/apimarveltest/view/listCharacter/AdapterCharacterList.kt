@@ -4,11 +4,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import test.test.apimarveltest.R
 import test.test.apimarveltest.remoteDataSource.model.CharacterModel
 
-class AdapterCharacterList(private val items: MutableList<CharacterModel>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AdapterCharacterList(
+    private val items: MutableList<CharacterModel>,
+    private val context: Fragment
+) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MyViewHolder(
@@ -22,6 +28,15 @@ class AdapterCharacterList(private val items: MutableList<CharacterModel>): Recy
                 holder.bind(items[position])
             }
         }
+
+        holder.itemView.setOnClickListener{
+            val id = items[position].id
+
+            val action = CharacterListFragmentDirections.actionCharacterListFragmentToCharacterDetailsFragment(id = id)
+            findNavController(context).navigate(action)
+
+        }
+
     }
 
     override fun getItemCount(): Int {
