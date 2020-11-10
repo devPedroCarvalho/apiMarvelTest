@@ -46,10 +46,10 @@ class AdapterCharacterList(
 
 class MyViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private val name = itemView.findViewById<TextView>(R.id.nameCharacterTextView)
+    private val nameTextView = itemView.findViewById<TextView>(R.id.nameCharacterTextView)
 
     fun bind(characterModel: CharacterModel){
-          name.text = characterModel.name
+        nameTextView.text = characterModel.name
     }
 }
 

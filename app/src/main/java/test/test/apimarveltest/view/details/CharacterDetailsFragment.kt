@@ -9,9 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import test.test.apimarveltest.R
 import test.test.apimarveltest.databinding.FragmentCharacterDetailsBinding
-import test.test.apimarveltest.view.listCharacter.CharacterListViewModel
 
 class CharacterDetailsFragment : Fragment() {
 
@@ -25,20 +23,16 @@ class CharacterDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCharacterDetailsBinding.inflate(inflater, container, false)
-        //setListeners()
-        val teste = args.id
-        print(teste)
-        viewModel.getDetailsCharacter(teste)
+
+        val id = args.id
+        viewModel.getDetailsCharacter(id)
+
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setObservers()
-    }
-
-    private fun setListeners() {
-        //TODO configure components
     }
 
     private fun setObservers() {

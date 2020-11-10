@@ -25,8 +25,6 @@ class CharacterListViewModel: ViewModel() {
                 response: Response<CharacterListResponse>
             ) {
 
-                val resp= response.body()
-                print(resp)
                 if (response.isSuccessful){
 
                     val listCharacter: MutableList<CharacterModel> = mutableListOf()

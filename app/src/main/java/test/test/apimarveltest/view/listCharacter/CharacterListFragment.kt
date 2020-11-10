@@ -21,7 +21,9 @@ class CharacterListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCharacterListBinding.inflate(inflater, container, false)
-        setListeners()
+
+        viewModel.getListCharacter()
+
         return binding.root
     }
 
@@ -30,10 +32,6 @@ class CharacterListFragment : Fragment() {
         setObservers()
     }
 
-    private fun setListeners() {
-        //TODO configure components
-        viewModel.getListCharacter()
-    }
 
     private fun setObservers() {
         viewModel.characterLiveData.observe(viewLifecycleOwner, Observer {
