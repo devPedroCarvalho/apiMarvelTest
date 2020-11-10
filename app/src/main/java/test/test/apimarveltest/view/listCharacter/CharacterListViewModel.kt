@@ -15,7 +15,6 @@ class CharacterListViewModel: ViewModel() {
     val characterLiveData: MutableLiveData<MutableList<CharacterModel>> = _characterLiveData
 
     fun getListCharacter(){
-        //booksLiveData.value = createFakeBooks()
         ApiService.service.getListCharacter().enqueue(object: Callback<CharacterListResponse> {
             override fun onFailure(call: Call<CharacterListResponse>, t: Throwable) {
 
