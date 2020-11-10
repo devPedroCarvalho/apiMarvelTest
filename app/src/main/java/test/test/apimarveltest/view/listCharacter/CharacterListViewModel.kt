@@ -7,7 +7,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import test.test.apimarveltest.remoteDataSource.ApiService
 import test.test.apimarveltest.remoteDataSource.model.CharacterModel
-import test.test.apimarveltest.remoteDataSource.response.CharacterListResponse
+import test.test.apimarveltest.remoteDataSource.response.list.CharacterListResponse
 
 class CharacterListViewModel: ViewModel() {
 
