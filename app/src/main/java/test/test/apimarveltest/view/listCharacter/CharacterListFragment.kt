@@ -5,18 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import test.test.apimarveltest.databinding.FragmentCharacterListBinding
 
 class CharacterListFragment : Fragment() {
 
     private lateinit var binding: FragmentCharacterListBinding
+    private val viewModel by viewModels<CharacterListViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCharacterListBinding.inflate(inflater, container, false)
-        //setListeners()
+        setListeners()
         return binding.root
     }
 
@@ -27,6 +29,7 @@ class CharacterListFragment : Fragment() {
 
     private fun setListeners() {
         //TODO configure components
+        viewModel.getListCharacter()
     }
 
     private fun setObservers() {
