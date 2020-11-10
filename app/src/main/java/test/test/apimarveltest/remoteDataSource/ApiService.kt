@@ -2,7 +2,7 @@ package test.test.apimarveltest.remoteDataSource
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import test.test.apimarveltest.Utils
+import test.test.apimarveltest.utils.Utils
 
 object ApiService {
 

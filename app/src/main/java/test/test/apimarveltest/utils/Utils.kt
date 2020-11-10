@@ -1,4 +1,4 @@
-package test.test.apimarveltest
+package test.test.apimarveltest.utils
 
 object Utils {
 

@@ -1,15 +1,12 @@
 package test.test.apimarveltest.view.details
 
 import android.content.Context
-import android.content.res.Resources
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bumptech.glide.load.engine.Resource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Response.error
 import test.test.apimarveltest.remoteDataSource.ApiService
 import test.test.apimarveltest.remoteDataSource.model.DetailsModel
 import test.test.apimarveltest.remoteDataSource.response.details.CharacterDetailsResponse
