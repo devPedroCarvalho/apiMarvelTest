@@ -7,14 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import test.test.apimarveltest.databinding.FragmentCharacterListBinding
+import test.test.apimarveltest.view.details.CharacterDetailsViewModel
+import test.test.apimarveltest.view.details.CharacterDetailsViewModelFactory
 
 class CharacterListFragment : Fragment() {
 
     private lateinit var binding: FragmentCharacterListBinding
-    private val viewModel by viewModels<CharacterListViewModel>()
     private lateinit var adapterCharacterList: AdapterCharacterList
+    private lateinit var  viewModel: CharacterListViewModel
+    private lateinit var  viewModelFactory: CharacterListViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,7 +26,10 @@ class CharacterListFragment : Fragment() {
     ): View? {
         binding = FragmentCharacterListBinding.inflate(inflater, container, false)
 
-        viewModel.getListCharacter(context)
+        viewModelFactory = CharacterListViewModelFactory(context)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(CharacterListViewModel::class.java)
+
+        viewModel.getListCharacter()
 
         return binding.root
     }

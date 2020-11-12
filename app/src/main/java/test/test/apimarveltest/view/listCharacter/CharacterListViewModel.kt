@@ -11,15 +11,19 @@ import test.test.apimarveltest.remoteDataSource.ApiService
 import test.test.apimarveltest.remoteDataSource.model.CharacterModel
 import test.test.apimarveltest.remoteDataSource.response.list.CharacterListResponse
 
-class CharacterListViewModel: ViewModel() {
+class CharacterListViewModel(
+        context: Context?
+): ViewModel() {
 
     private val _characterLiveData = MutableLiveData<MutableList<CharacterModel>>()
     val characterLiveData: MutableLiveData<MutableList<CharacterModel>> = _characterLiveData
 
-    fun getListCharacter(context: Context?){
+    val contextViewModel = context
+
+    fun getListCharacter(){
         ApiService.service.getListCharacter().enqueue(object: Callback<CharacterListResponse> {
             override fun onFailure(call: Call<CharacterListResponse>, t: Throwable) {
-                Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(contextViewModel, t.message, Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(
@@ -43,7 +47,7 @@ class CharacterListViewModel: ViewModel() {
                     _characterLiveData.value = listCharacter
 
                 }else {
-                    Toast.makeText(context, "${response.code()} ${response.message()}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(contextViewModel, "${response.code()} ${response.message()}", Toast.LENGTH_SHORT).show()
                 }
             }
 
