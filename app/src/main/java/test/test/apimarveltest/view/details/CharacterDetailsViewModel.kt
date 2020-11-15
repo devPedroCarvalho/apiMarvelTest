@@ -10,6 +10,7 @@ import retrofit2.Response
 import test.test.apimarveltest.remoteDataSource.ApiService
 import test.test.apimarveltest.remoteDataSource.model.DetailsModel
 import test.test.apimarveltest.remoteDataSource.response.details.CharacterDetailsResponse
+import test.test.apimarveltest.utils.showAlert
 
 class CharacterDetailsViewModel(
         context: Context?
@@ -23,7 +24,7 @@ class CharacterDetailsViewModel(
     fun getDetailsCharacter(id: Int){
         ApiService.service.getDetailsCharacter(id = id).enqueue(object: Callback<CharacterDetailsResponse> {
             override fun onFailure(call: Call<CharacterDetailsResponse>, t: Throwable) {
-                Toast.makeText(contextViewModel, t.message, Toast.LENGTH_SHORT).show()
+                showAlert(contextViewModel, t.message)
             }
 
             override fun onResponse(
@@ -43,7 +44,7 @@ class CharacterDetailsViewModel(
                         _detailsLiveData.value = modelDetails
                     }
                 }else {
-                    Toast.makeText(contextViewModel, "${response.code()} ${response.message()}", Toast.LENGTH_SHORT).show()
+                    showAlert(contextViewModel, "${response.code()} ${response.message()}")
                 }
             }
 

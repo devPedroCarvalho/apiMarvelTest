@@ -10,6 +10,7 @@ import retrofit2.Response
 import test.test.apimarveltest.remoteDataSource.ApiService
 import test.test.apimarveltest.remoteDataSource.model.CharacterModel
 import test.test.apimarveltest.remoteDataSource.response.list.CharacterListResponse
+import test.test.apimarveltest.utils.showAlert
 
 class CharacterListViewModel(
         context: Context?
@@ -23,7 +24,7 @@ class CharacterListViewModel(
     fun getListCharacter(){
         ApiService.service.getListCharacter().enqueue(object: Callback<CharacterListResponse> {
             override fun onFailure(call: Call<CharacterListResponse>, t: Throwable) {
-                Toast.makeText(contextViewModel, t.message, Toast.LENGTH_SHORT).show()
+                showAlert(contextViewModel, t.message)
             }
 
             override fun onResponse(
@@ -47,7 +48,7 @@ class CharacterListViewModel(
                     _characterLiveData.value = listCharacter
 
                 }else {
-                    Toast.makeText(contextViewModel, "${response.code()} ${response.message()}", Toast.LENGTH_SHORT).show()
+                    showAlert(contextViewModel, "${response.code()} ${response.message()}")
                 }
             }
 

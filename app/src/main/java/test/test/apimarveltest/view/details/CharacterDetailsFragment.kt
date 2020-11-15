@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import test.test.apimarveltest.R
 import test.test.apimarveltest.databinding.FragmentCharacterDetailsBinding
+import test.test.apimarveltest.utils.loadImage
 
 class CharacterDetailsFragment : Fragment() {
 
@@ -58,10 +59,7 @@ class CharacterDetailsFragment : Fragment() {
                 binding.descriptionTextView.text = it.description
 
             }
-            Glide.with(this)
-                .load(it.url())
-                .error(R.drawable.ic_not_found_image)
-                .into(binding.imageCharacterImageView)
+            loadImage(it.url(),binding.imageCharacterImageView,this)
         })
     }
 }
