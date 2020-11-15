@@ -5,21 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
 import test.test.apimarveltest.R
 import test.test.apimarveltest.databinding.FragmentCharacterDetailsBinding
 import test.test.apimarveltest.utils.loadImage
 
+@AndroidEntryPoint
 class CharacterDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentCharacterDetailsBinding
     private val args: CharacterDetailsFragmentArgs by navArgs()
     private lateinit var viewModel: CharacterDetailsViewModel
-    private lateinit var  viewModelFactory: CharacterDetailsViewModelFactory
 
 
     override fun onCreateView(
@@ -28,8 +27,7 @@ class CharacterDetailsFragment : Fragment() {
     ): View? {
         binding = FragmentCharacterDetailsBinding.inflate(inflater, container, false)
 
-        viewModelFactory = CharacterDetailsViewModelFactory(context)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(CharacterDetailsViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(CharacterDetailsViewModel::class.java)
 
         val id = args.id
         viewModel.getDetailsCharacter(id)

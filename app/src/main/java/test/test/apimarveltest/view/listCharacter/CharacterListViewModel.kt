@@ -1,19 +1,21 @@
 package test.test.apimarveltest.view.listCharacter
 
 import android.content.Context
-import android.widget.Toast
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import test.test.apimarveltest.remoteDataSource.ApiService
+import test.test.apimarveltest.remoteDataSource.MarvelServices
 import test.test.apimarveltest.remoteDataSource.model.CharacterModel
 import test.test.apimarveltest.remoteDataSource.response.list.CharacterListResponse
 import test.test.apimarveltest.utils.showAlert
 
-class CharacterListViewModel(
-        context: Context?
+class CharacterListViewModel @ViewModelInject constructor(
+        private val apiService: MarvelServices,
+       @ApplicationContext context: Context?
 ): ViewModel() {
 
     private val _characterLiveData = MutableLiveData<MutableList<CharacterModel>>()
@@ -22,7 +24,7 @@ class CharacterListViewModel(
     val contextViewModel = context
 
     fun getListCharacter(){
-        ApiService.service.getListCharacter().enqueue(object: Callback<CharacterListResponse> {
+        apiService.getListCharacter().enqueue(object: Callback<CharacterListResponse> {
             override fun onFailure(call: Call<CharacterListResponse>, t: Throwable) {
                 showAlert(contextViewModel, t.message)
             }

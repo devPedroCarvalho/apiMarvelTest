@@ -5,20 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import test.test.apimarveltest.databinding.FragmentCharacterListBinding
-import test.test.apimarveltest.view.details.CharacterDetailsViewModel
-import test.test.apimarveltest.view.details.CharacterDetailsViewModelFactory
 
+@AndroidEntryPoint
 class CharacterListFragment : Fragment() {
 
     private lateinit var binding: FragmentCharacterListBinding
     private lateinit var adapterCharacterList: AdapterCharacterList
     private lateinit var  viewModel: CharacterListViewModel
-    private lateinit var  viewModelFactory: CharacterListViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,8 +24,7 @@ class CharacterListFragment : Fragment() {
     ): View? {
         binding = FragmentCharacterListBinding.inflate(inflater, container, false)
 
-        viewModelFactory = CharacterListViewModelFactory(context)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(CharacterListViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(CharacterListViewModel::class.java)
 
         viewModel.getListCharacter()
 
