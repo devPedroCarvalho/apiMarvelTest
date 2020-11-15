@@ -7,16 +7,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import test.test.apimarveltest.R
 import test.test.apimarveltest.databinding.FragmentCharacterDetailsBinding
+import test.test.apimarveltest.utils.loadImage
 
 class CharacterDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentCharacterDetailsBinding
     private val args: CharacterDetailsFragmentArgs by navArgs()
-    private val viewModel by viewModels<CharacterDetailsViewModel>()
+    private lateinit var viewModel: CharacterDetailsViewModel
+    private lateinit var  viewModelFactory: CharacterDetailsViewModelFactory
 
 
     override fun onCreateView(
@@ -25,8 +28,11 @@ class CharacterDetailsFragment : Fragment() {
     ): View? {
         binding = FragmentCharacterDetailsBinding.inflate(inflater, container, false)
 
+        viewModelFactory = CharacterDetailsViewModelFactory(context)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(CharacterDetailsViewModel::class.java)
+
         val id = args.id
-        viewModel.getDetailsCharacter(id,context)
+        viewModel.getDetailsCharacter(id)
 
         return binding.root
     }
@@ -53,10 +59,7 @@ class CharacterDetailsFragment : Fragment() {
                 binding.descriptionTextView.text = it.description
 
             }
-            Glide.with(this)
-                .load(it.url())
-                .error(R.drawable.ic_not_found_image)
-                .into(binding.imageCharacterImageView)
+            loadImage(it.url(),binding.imageCharacterImageView,this)
         })
     }
 }
