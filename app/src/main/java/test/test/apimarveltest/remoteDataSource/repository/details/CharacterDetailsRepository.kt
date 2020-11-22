@@ -1,4 +1,4 @@
-package test.test.apimarveltest.remoteDataSource.repository
+package test.test.apimarveltest.remoteDataSource.repository.details
 
 import androidx.lifecycle.MutableLiveData
 import retrofit2.Call
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class CharacterDetailsRepository @Inject constructor(
         private val apiService: MarvelServices
-):ICharacterDetailsRepository {
+): ICharacterDetailsRepository {
 
     val detailsLiveData = MutableLiveData<DetailsModel>()
 

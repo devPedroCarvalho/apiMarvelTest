@@ -26,8 +26,6 @@ class CharacterListFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(CharacterListViewModel::class.java)
 
-        viewModel.getListCharacter()
-
         return binding.root
     }
 
@@ -38,7 +36,7 @@ class CharacterListFragment : Fragment() {
 
 
     private fun setObservers() {
-        viewModel.characterLiveData.observe(viewLifecycleOwner, Observer {
+        viewModel.getDetailsCharacter()?.observe(viewLifecycleOwner, Observer {
 
             adapterCharacterList = AdapterCharacterList(it, this)
 
