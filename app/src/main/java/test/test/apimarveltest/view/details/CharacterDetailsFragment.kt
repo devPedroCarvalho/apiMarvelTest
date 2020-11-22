@@ -29,8 +29,7 @@ class CharacterDetailsFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(CharacterDetailsViewModel::class.java)
 
-        val id = args.id
-        viewModel.getDetailsCharacter(id)
+
 
         return binding.root
     }
@@ -41,9 +40,10 @@ class CharacterDetailsFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.detailsLiveData.observe(viewLifecycleOwner, Observer {
 
+        val id = args.id
 
+        viewModel.getDetailsCharacter(id)?.observe(viewLifecycleOwner, Observer {
             if (it.name.isBlank()){
                 binding.titleTextView.text = getString(R.string.title_is_empty)
             }else{
