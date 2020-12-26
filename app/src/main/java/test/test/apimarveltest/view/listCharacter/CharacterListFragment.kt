@@ -1,6 +1,7 @@
 package test.test.apimarveltest.view.listCharacter
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import test.test.apimarveltest.remoteDataSource.model.CharacterModel
 import test.test.apimarveltest.remoteDataSource.model.DetailsModel
 import test.test.apimarveltest.remoteDataSource.resource.Status
 import test.test.apimarveltest.utils.showAlert
+import timber.log.Timber
 
 @AndroidEntryPoint
 class CharacterListFragment : Fragment() {
@@ -22,6 +24,7 @@ class CharacterListFragment : Fragment() {
     private lateinit var binding: FragmentCharacterListBinding
     private lateinit var adapterCharacterList: AdapterCharacterList
     private lateinit var  viewModel: CharacterListViewModel
+    private val tagTimber = "CharacterListFragment"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +51,7 @@ class CharacterListFragment : Fragment() {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
+                        Timber.tag(tagTimber).v("$resource")
                         hideProgressBar()
                         if (resource.data?.isSuccessful == true){
                             resource.data.body()?.let {
@@ -68,11 +72,13 @@ class CharacterListFragment : Fragment() {
                             }
                         }else{
                             showAlert(activity,"ERROR:${it.data?.code()} ${it.data?.message()}")
+                            Timber.tag(tagTimber).v("$resource")
                         }
                     }
                     Status.ERROR -> {
                         hideProgressBar()
                         showAlert(activity,"ERROR:${it.data?.code()} ${it.data?.message()}")
+                        Timber.tag(tagTimber).v("$resource")
                     }
                     Status.LOADING -> {
                        showProgressBar()

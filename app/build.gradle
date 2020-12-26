@@ -84,4 +84,8 @@ dependencies {
     kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
     // When using Java.
     annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+
+    //Timber log
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
 }

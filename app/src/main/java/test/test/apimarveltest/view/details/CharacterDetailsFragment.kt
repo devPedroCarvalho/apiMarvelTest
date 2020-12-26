@@ -16,6 +16,7 @@ import test.test.apimarveltest.remoteDataSource.model.DetailsModel
 import test.test.apimarveltest.remoteDataSource.resource.Status
 import test.test.apimarveltest.utils.loadImage
 import test.test.apimarveltest.utils.showAlert
+import timber.log.Timber
 
 @AndroidEntryPoint
 class CharacterDetailsFragment : Fragment() {
@@ -23,6 +24,8 @@ class CharacterDetailsFragment : Fragment() {
     private lateinit var binding: FragmentCharacterDetailsBinding
     private val args: CharacterDetailsFragmentArgs by navArgs()
     private lateinit var viewModel: CharacterDetailsViewModel
+    private val tagTimber = "CharacterDetailsFragment"
+
 
 
     override fun onCreateView(
@@ -50,6 +53,7 @@ class CharacterDetailsFragment : Fragment() {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
+                        Timber.tag(tagTimber).v("$resource")
                         hideProgressBar()
                         if (resource.data?.isSuccessful == true){
 
@@ -77,12 +81,15 @@ class CharacterDetailsFragment : Fragment() {
                         }
                         }else{
                             showAlert(activity,"ERROR:${it.data?.code()} ${it.data?.message()}")
+                            Timber.tag(tagTimber).v("$resource")
                         }
                     }
 
                     Status.ERROR -> {
                         hideProgressBar()
                         showAlert(activity,"ERROR:${it.data?.code()} ${it.data?.message()}")
+                        Timber.tag(tagTimber).v("$resource")
+
                     }
                     Status.LOADING -> {
                         showProgressBar()
