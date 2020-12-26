@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import test.test.apimarveltest.MainActivity
 import test.test.apimarveltest.databinding.FragmentCharacterListBinding
 import test.test.apimarveltest.remoteDataSource.model.CharacterModel
 import test.test.apimarveltest.remoteDataSource.model.DetailsModel
@@ -47,6 +48,7 @@ class CharacterListFragment : Fragment() {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
+                        hideProgressBar()
                         if (resource.data?.isSuccessful == true){
                             resource.data.body()?.let {
                                 for(results in it.data.results){
@@ -69,15 +71,23 @@ class CharacterListFragment : Fragment() {
                         }
                     }
                     Status.ERROR -> {
+                        hideProgressBar()
                         showAlert(activity,it.message)
                     }
                     Status.LOADING -> {
-                        //TODO create a loading
-                        print("loading")
+                       showProgressBar()
 
                     }
                 }
             }
         })
+    }
+
+    private fun showProgressBar(){
+        (requireActivity() as MainActivity).showProgressBar()
+    }
+
+    private fun hideProgressBar(){
+        (requireActivity() as MainActivity).hideProgressBar()
     }
 }
