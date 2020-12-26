@@ -47,25 +47,29 @@ class CharacterListFragment : Fragment() {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        resource.data?.body()?.let {
-                           for(results in it.data.results){
-                               val listCharacterModel = CharacterModel(
-                                   id = results.id,
-                                   name = results.name
-                               )
-                               listCharacter.add(listCharacterModel)
+                        if (resource.data?.isSuccessful == true){
+                            resource.data.body()?.let {
+                                for(results in it.data.results){
+                                    val listCharacterModel = CharacterModel(
+                                        id = results.id,
+                                        name = results.name
+                                    )
+                                    listCharacter.add(listCharacterModel)
 
-                           }
-                            adapterCharacterList = AdapterCharacterList(listCharacter, this)
-                            binding.characterListRecyclerView.apply {
-                                adapter = adapterCharacterList
-                                adapterCharacterList.notifyDataSetChanged()
-                                layoutManager = LinearLayoutManager(activity)
+                                }
+                                adapterCharacterList = AdapterCharacterList(listCharacter, this)
+                                binding.characterListRecyclerView.apply {
+                                    adapter = adapterCharacterList
+                                    adapterCharacterList.notifyDataSetChanged()
+                                    layoutManager = LinearLayoutManager(activity)
+                                }
                             }
+                        }else{
+                            showAlert(activity,it.data?.message())
                         }
                     }
                     Status.ERROR -> {
-                        showAlert(context,it.message)
+                        showAlert(activity,it.message)
                     }
                     Status.LOADING -> {
                         //TODO create a loading
