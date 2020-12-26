@@ -21,11 +21,11 @@ interface MarvelServices {
 
 
     @GET("/v1/public/characters/{id}")
-    fun getDetailsCharacter(
+   suspend fun getDetailsCharacter(
         @Path("id") id: Int,
         @Query(Utils.TS) ts: Int = Utils.TS_VALUE,
         @Query(Utils.API_KEY) apikey: String = Utils.API_KEY_VALUE,
         @Query(Utils.HASH) hash: String = Utils.HASH_VALUE
-    ): Call<CharacterDetailsResponse>
+    ): Response<CharacterDetailsResponse>
 
 }

@@ -2,23 +2,23 @@ package test.test.apimarveltest.view.details
 
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import test.test.apimarveltest.remoteDataSource.model.DetailsModel
+import androidx.lifecycle.liveData
+import kotlinx.coroutines.Dispatchers
 import test.test.apimarveltest.remoteDataSource.repository.details.ICharacterDetailsRepository
+import test.test.apimarveltest.remoteDataSource.resource.Resource
 
 class CharacterDetailsViewModel @ViewModelInject constructor(
         private val repository: ICharacterDetailsRepository,
 ): ViewModel() {
 
-
-    var detailsModelLiveData: MutableLiveData<DetailsModel>? = null
-
-    fun getDetailsCharacter(id: Int) : LiveData<DetailsModel>? {
-        detailsModelLiveData = repository.getDetailsCharacter(id = id)
-        return detailsModelLiveData
+    fun getDetailsCharacter(id: Int) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            emit(Resource.success(data = repository.getDetailsCharacter(id = id)))
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
     }
-
 }
 
