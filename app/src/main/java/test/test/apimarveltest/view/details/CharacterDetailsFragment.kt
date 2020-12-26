@@ -76,13 +76,13 @@ class CharacterDetailsFragment : Fragment() {
                             loadImage(modelDetails.url(),binding.imageCharacterImageView,this)
                         }
                         }else{
-                            showAlert(activity,it.message)
+                            showAlert(activity,"ERROR:${it.data?.code()} ${it.data?.message()}")
                         }
                     }
 
                     Status.ERROR -> {
                         hideProgressBar()
-                        showAlert(activity,it.message)
+                        showAlert(activity,"ERROR:${it.data?.code()} ${it.data?.message()}")
                     }
                     Status.LOADING -> {
                         showProgressBar()

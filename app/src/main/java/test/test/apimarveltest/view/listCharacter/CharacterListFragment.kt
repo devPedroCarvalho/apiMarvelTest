@@ -67,12 +67,12 @@ class CharacterListFragment : Fragment() {
                                 }
                             }
                         }else{
-                            showAlert(activity,it.data?.message())
+                            showAlert(activity,"ERROR:${it.data?.code()} ${it.data?.message()}")
                         }
                     }
                     Status.ERROR -> {
                         hideProgressBar()
-                        showAlert(activity,it.message)
+                        showAlert(activity,"ERROR:${it.data?.code()} ${it.data?.message()}")
                     }
                     Status.LOADING -> {
                        showProgressBar()
