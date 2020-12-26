@@ -10,6 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import test.test.apimarveltest.databinding.FragmentCharacterListBinding
+import test.test.apimarveltest.remoteDataSource.model.CharacterModel
+import test.test.apimarveltest.remoteDataSource.model.DetailsModel
+import test.test.apimarveltest.remoteDataSource.resource.Status
+import test.test.apimarveltest.utils.showAlert
 
 @AndroidEntryPoint
 class CharacterListFragment : Fragment() {
@@ -36,14 +40,39 @@ class CharacterListFragment : Fragment() {
 
 
     private fun setObservers() {
-        viewModel.getDetailsCharacter()?.observe(viewLifecycleOwner, Observer {
+        viewModel.getDetailsCharacter().observe(viewLifecycleOwner, Observer { it ->
 
-            adapterCharacterList = AdapterCharacterList(it, this)
+            val listCharacter: MutableList<CharacterModel> = mutableListOf()
 
-            binding.characterListRecyclerView.apply {
-                adapter = adapterCharacterList
-                adapterCharacterList.notifyDataSetChanged()
-                layoutManager = LinearLayoutManager(activity)
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data?.body()?.let {
+                           for(results in it.data.results){
+                               val listCharacterModel = CharacterModel(
+                                   id = results.id,
+                                   name = results.name
+                               )
+                               listCharacter.add(listCharacterModel)
+
+                           }
+                            adapterCharacterList = AdapterCharacterList(listCharacter, this)
+                            binding.characterListRecyclerView.apply {
+                                adapter = adapterCharacterList
+                                adapterCharacterList.notifyDataSetChanged()
+                                layoutManager = LinearLayoutManager(activity)
+                            }
+                        }
+                    }
+                    Status.ERROR -> {
+                        showAlert(context,it.message)
+                    }
+                    Status.LOADING -> {
+                        //TODO create a loading
+                        print("loading")
+
+                    }
+                }
             }
         })
     }

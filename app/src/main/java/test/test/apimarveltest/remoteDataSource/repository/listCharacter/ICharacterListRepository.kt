@@ -1,10 +1,10 @@
 package test.test.apimarveltest.remoteDataSource.repository.listCharacter
 
-import androidx.lifecycle.MutableLiveData
-import test.test.apimarveltest.remoteDataSource.model.CharacterModel
+import retrofit2.Response
+import test.test.apimarveltest.remoteDataSource.response.list.CharacterListResponse
 
 interface ICharacterListRepository {
 
-    fun getListCharacter(): MutableLiveData<MutableList<CharacterModel>>
+    suspend fun getListCharacter(): Response<CharacterListResponse>
 
 }
